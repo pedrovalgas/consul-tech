@@ -9,32 +9,33 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "consultores")
+@Table(name = "empresas")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Consultor {
+public class Empresa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome_consultor")
+    @Column(name = "nome_empresa")
     private String nome;
 
-    @Column(name = "email_consultor")
-    private String email;
+    private Endereco endereco;
+    
+    private double latitude;
 
-    @Column(name = "senha_consultor")
-    private String senha;
+    private double longitude;
 
-    @Column(name = "telefone_consultor")
-    private String telefone;
+    @Column(name = "nome_responsavel")
+    private String responsavel;
 
-    private String cargo;
+    @Column(name = "telefone_empresa")
+    private String telefoneContato;
 
-    private boolean ativo;
+    private String observacoes;
 
     private LocalDateTime dataCadastro;
 
