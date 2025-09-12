@@ -3,6 +3,7 @@ package com.pedrolucas.ConsulTech.service;
 import com.pedrolucas.ConsulTech.dto.consultor.ConsultorAtualizarRequest;
 import com.pedrolucas.ConsulTech.dto.consultor.ConsultorCriarRequest;
 import com.pedrolucas.ConsulTech.dto.consultor.ConsultorDetalhesResponse;
+import com.pedrolucas.ConsulTech.exception.ConsultorNaoEncontradoException;
 import com.pedrolucas.ConsulTech.mapper.ConsultorMapper;
 import com.pedrolucas.ConsulTech.repository.ConsultorRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,20 +30,20 @@ public class ConsultorService {
 
     public ConsultorDetalhesResponse buscarPorId(Long id){
         var consultor = repository.findByIdAndAtivoTrue(id)
-                .orElseThrow(() -> new RuntimeException("Consultor não encontrado"));
+                .orElseThrow(() -> new ConsultorNaoEncontradoException("Consultor não encontrado"));
         return mapper.toDetalhes(consultor);
     }
 
     public ConsultorDetalhesResponse atualizar(Long id, ConsultorAtualizarRequest dto){
         var consultor = repository.findByIdAndAtivoTrue(id)
-                .orElseThrow(() -> new RuntimeException("Consultor não encontrado"));
+                .orElseThrow(() -> new ConsultorNaoEncontradoException("Consultor não encontrado"));
         mapper.updateFromDto(consultor, dto);
         return mapper.toDetalhes(repository.save(consultor));
     }
 
-    public void deletar(Long id) throws Throwable {
+    public void deletar(Long id) {
         var consultor = repository.findByIdAndAtivoTrue(id)
-                        .orElseThrow(() -> new RuntimeException("Consultor não encontrado"));
+                        .orElseThrow(() -> new ConsultorNaoEncontradoException("Consultor não encontrado"));
         consultor.setAtivo(false);
         repository.save(consultor);
     }
