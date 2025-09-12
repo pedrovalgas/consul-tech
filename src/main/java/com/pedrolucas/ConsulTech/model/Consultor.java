@@ -20,13 +20,13 @@ public class Consultor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome_consultor")
+    @Column(name = "nome_consultor", nullable = false)
     private String nome;
 
-    @Column(name = "email_consultor")
+    @Column(name = "email_consultor", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "senha_consultor")
+    @Column(name = "senha_consultor", nullable = false)
     private String senha;
 
     @Column(name = "telefone_consultor")
@@ -34,8 +34,8 @@ public class Consultor {
 
     private String cargo;
 
-    private boolean ativo;
+    private boolean ativo = true;
 
-    private LocalDateTime dataCadastro;
+    private LocalDateTime dataCadastro = LocalDateTime.now();
 
 }

@@ -1,5 +1,8 @@
 package com.pedrolucas.ConsulTech.model;
 
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class Endereco {
     private String rua;
     private String bairro;

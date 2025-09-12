@@ -20,14 +20,15 @@ public class Empresa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome_empresa")
+    @Column(name = "nome_empresa", nullable = false)
     private String nome;
 
+    @Embedded
     private Endereco endereco;
-    
-    private double latitude;
 
-    private double longitude;
+    private Double latitude;
+
+    private Double longitude;
 
     @Column(name = "nome_responsavel")
     private String responsavel;
@@ -37,6 +38,6 @@ public class Empresa {
 
     private String observacoes;
 
-    private LocalDateTime dataCadastro;
+    private LocalDateTime dataCadastro = LocalDateTime.now();
 
 }
