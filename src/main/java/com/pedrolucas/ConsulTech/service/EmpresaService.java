@@ -7,6 +7,7 @@ import com.pedrolucas.ConsulTech.exception.EmpresaNaoEncontradaException;
 import com.pedrolucas.ConsulTech.mapper.EmpresaMapper;
 import com.pedrolucas.ConsulTech.model.Empresa;
 import com.pedrolucas.ConsulTech.repository.EmpresaRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class EmpresaService {
     private final EmpresaMapper mapper;
 
 
+    @Transactional
     public EmpresaDetalhesResponse criar(EmpresaCriarRequest dto){
         var empresa = mapper.toEntity(dto);
         return mapper.toDetalhes(repository.save(empresa));
@@ -36,6 +38,7 @@ public class EmpresaService {
         return mapper.toDetalhes(empresa);
     }
 
+    @Transactional
     public EmpresaDetalhesResponse atualizar(Long id, EmpresaAtualizarRequest dto){
         var empresa = repository.findById(id)
                 .orElseThrow(() -> new EmpresaNaoEncontradaException("Empresa não encontrada"));
@@ -43,6 +46,7 @@ public class EmpresaService {
         return mapper.toDetalhes(repository.save(empresa));
     }
 
+    @Transactional
     public void deletar(Long id){
         var empresa = repository.findById(id)
                 .orElseThrow(() -> new EmpresaNaoEncontradaException("Empresa não encontrada"));

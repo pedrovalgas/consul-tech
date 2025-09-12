@@ -12,6 +12,7 @@ import com.pedrolucas.ConsulTech.repository.ConsultorRepository;
 import com.pedrolucas.ConsulTech.repository.EmpresaRepository;
 import com.pedrolucas.ConsulTech.repository.VisitaRepository;
 import com.pedrolucas.ConsulTech.validacoes.ValidadorDeVisita;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,7 @@ public class VisitaService {
     private final EmpresaRepository empresaRepository;
     private final List<ValidadorDeVisita> validadores;
 
+    @Transactional
     public VisitaDetalhesResponse criar(VisitaCriarRequest dto){
         var consultor = consultorRepository.findById(dto.consultorId())
                 .orElseThrow(() -> new ConsultorNaoEncontradoException("Consultor não existe"));
@@ -57,6 +59,7 @@ public class VisitaService {
         return mapper.toDetalhes(visita);
     }
 
+    @Transactional
     public VisitaDetalhesResponse atualizar(Long id, VisitaAtualizarRequest dto){
         var visita = repository.findById(id)
                 .orElseThrow(() -> new VisitaNaoEncontradaException("Visita não encontrada"));
@@ -67,6 +70,7 @@ public class VisitaService {
         return mapper.toDetalhes(repository.save(visita));
     }
 
+    @Transactional
     public void deletar(Long id){
         var visita = repository.findById(id)
                 .orElseThrow(() -> new VisitaNaoEncontradaException("Visita não encontrada"));
