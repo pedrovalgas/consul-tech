@@ -41,6 +41,7 @@ public class ConsultorController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarConsultor(@PathVariable Long id){
+        service.deletar(id);
         return ResponseEntity.noContent().build();
     }
 

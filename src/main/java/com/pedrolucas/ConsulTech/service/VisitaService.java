@@ -16,6 +16,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.util.List;
 
 @Service
@@ -37,6 +38,11 @@ public class VisitaService {
         var visita = mapper.toEntity(dto);
         visita.setConsultor(consultor);
         visita.setEmpresa(empresa);
+
+        if (dto.dataHoraInicio() != null && dto.dataHoraFim() != null) {
+            long minutos = Duration.between(dto.dataHoraInicio(), dto.dataHoraFim()).toMinutes();
+            visita.setTempoTotalMinutos(minutos);
+        }
 
         validadores.forEach(validador -> validador.validar(visita));
 

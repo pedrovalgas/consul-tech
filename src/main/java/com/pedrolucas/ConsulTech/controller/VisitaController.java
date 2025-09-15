@@ -5,6 +5,7 @@ import com.pedrolucas.ConsulTech.dto.visita.VisitaCriarRequest;
 import com.pedrolucas.ConsulTech.dto.visita.VisitaDetalhesResponse;
 import com.pedrolucas.ConsulTech.model.Status;
 import com.pedrolucas.ConsulTech.service.VisitaService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class VisitaController {
     private final VisitaService service;
 
     @PostMapping
-    public ResponseEntity<VisitaDetalhesResponse> criarVisita(@RequestBody VisitaCriarRequest dto){
+    public ResponseEntity<VisitaDetalhesResponse> criarVisita(@RequestBody @Valid VisitaCriarRequest dto){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.criar(dto));
     }
 

@@ -18,8 +18,9 @@ public class ValidadorConflitoDeHorario implements ValidadorDeVisita{
         var dataInicio = visita.getDataHoraInicio();
         var dataFim = visita.getDataHoraFim();
 
-        var validacao = repository.existsByConsultorAndDataHoraInicioBeforeAndDataHoraFimAfter(consultor, dataFim, dataInicio);
-
+        var validacao = repository.existsByConsultorAndDataHoraInicioBeforeAndDataHoraFimAfterAndIdNot(
+                consultor, dataFim, dataInicio, visita.getId()
+        );
         if (validacao){
             throw new ValidacaoException("Ja existem uma visita marcada nesse horário");
         }

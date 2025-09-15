@@ -11,5 +11,5 @@ import java.util.List;
 public interface VisitaRepository extends JpaRepository<Visita, Long> {
     List<Visita> findByStatus(Status status);
 
-    boolean existsByConsultorAndDataHoraInicioBeforeAndDataHoraFimAfter(Consultor consultor, LocalDateTime dataFim, LocalDateTime dataInicio);
+    boolean existsByConsultorAndDataHoraInicioBeforeAndDataHoraFimAfterAndIdNot(Consultor consultor, LocalDateTime dataFim, LocalDateTime dataInicio, Long id);
 }
